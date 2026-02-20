@@ -129,9 +129,11 @@ end;
 function NativeApp.IsFileNameValid(AFileName: AnsiString): Boolean;
 const ValidChars: set of AnsiChar = [
     'A'..'Z', 'a'..'z',
-    'à'..'ÿ', 'À'..'ß',
+    #$C0..#$DF, // 'AA'..'JA' (CP-1251)
+    #$E0..#$FF, // 'aa'..'ja' (CP-1251)
+    #$A8, #$B8, // 'JO' , 'jo' (CP-1251)
     '0'..'9',
-    '_', '-', '.', '+', ' ', '¨', '¸' ];
+    '_', '-', '.', '+', ' ' ];
 var I: Integer;
 begin
     Result := False;
